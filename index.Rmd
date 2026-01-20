@@ -25,9 +25,11 @@ target_crs <- 4326
 
 ## My first online map
 
-```{r, echo=TRUE}
+This map below shows the recent earthquakes around the world and the active fault lines. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Earthquakes
-eq <- st_read("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson")
+eq <- st_read("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson", quiet = TRUE) 
 
 # Fault lines
 faults <- esri2sf::esri2sf(
@@ -36,7 +38,7 @@ faults <- esri2sf::esri2sf(
   st_transform(target_crs)
 
 # Map
-leaflet() %>%
+leaflet(width = "100%") %>%
   setView(lng = 63, lat = 28, zoom = 2) %>%
   addProviderTiles(providers$CartoDB.DarkMatter, group = "Carto") %>%
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
@@ -67,3 +69,5 @@ leaflet() %>%
   addResetMapButton() %>%
   addFullscreenControl()
 ```
+
+(Data source: [U.S. Geological Survey](https://www.usgs.gov/programs/earthquake-hazards/earthquakes))
