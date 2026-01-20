@@ -10,20 +10,19 @@ format:
 editor: visual
 ---
 
-
 ```{=html}
 <style>
 .quarto-title-block { text-align: center; }
 </style>
 ```
 
-
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Introduction
+
 ...
 
 ## Methods
+
 ...
 
 ## Results
@@ -45,7 +44,7 @@ library(rnaturalearth)      # Natural Earth basemap
 target_crs <- 4326
 ```
 
-This map below shows the recent earthquakes around the world and the active fault lines. 
+This map below shows the recent earthquakes around the world and the active fault lines.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Earthquakes
@@ -93,7 +92,10 @@ leaflet(width = "100%") %>%
 (Data source: [U.S. Geological Survey](https://www.usgs.gov/programs/earthquake-hazards/earthquakes))
 
 ## Discussion
+
 ...
 
 ## Conclusion
-...
+
+![](image.png)
+:::

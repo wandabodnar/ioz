@@ -69,4 +69,7 @@ leaflet(width = "100%") %>%
   addFullscreenControl()
 ```
 
+
+![](C:/Users/bodna/OneDrive/Documents/GIS plan/ioz/session 4/quarto/image.png)
+
 (Data source: [U.S. Geological Survey](https://www.usgs.gov/programs/earthquake-hazards/earthquakes))

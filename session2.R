@@ -38,10 +38,10 @@ points_df <- read_csv("points.csv")
 points_sf <- st_as_sf(
   points_df,
   coords = c("lon", "lat"),
-  crs = 4326) # WGS84 lon/lat
+  crs = 4326) 
 
 # Line from GeoJSON
-line_sf <- st_read("line.geojson", quiet = TRUE)
+line_sf <- st_read("line.geojson", quiet = TRUE)  # Suppresses the printed status report that usually details the number of features, fields, and the CRS
 
 # Polygon from Shapefile
 polygon_sf <- st_read("layers/POLYGON.shp", quiet = TRUE)
@@ -75,7 +75,7 @@ ggplot() +
 ## Add “type” attributes for legends
 ## ----------------------------------
 
-## Colors for consistent styling
+# Colors for consistent styling
 line_point_cols <- c(
   "Transect" = "green4",
   "Monitoring site" = "red3")
@@ -83,10 +83,17 @@ line_point_cols <- c(
 poly_fill_cols <- c(
   "Study area" = "purple4")
 
-points_sf  <- points_sf  %>% mutate(type = "Monitoring site")
-line_sf    <- line_sf    %>% mutate(type = "Transect")
-polygon_sf <- polygon_sf %>% mutate(type = "Study area")
+# Add type attribute to each layer
+points_sf <- points_sf  %>% 
+  mutate(type = "Monitoring site")  # mutate() is a core function  used to create, modify, or delete columns in a data frame
 
+line_sf <- line_sf %>% 
+  mutate(type = "Transect")
+
+polygon_sf <- polygon_sf %>% 
+  mutate(type = "Study area")
+
+# Rebuild map with legends
 ggplot() +
   geom_sf(data = polygon_sf, aes(fill = type), colour = NA) +
   geom_sf(data = line_sf, aes(colour = type), linewidth = 0.8) +
@@ -107,7 +114,7 @@ thames <- esri2sf::esri2sf(
   where = "1=1") %>%
   st_transform(target_crs)
 
-## Build combined map: basemap first, then polygon/lines/points
+# Build combined map: basemap first, then polygon/lines/points
 thames_map <- ggplot() +
   geom_sf(data = thames, fill = "lightblue", colour = NA) +
   geom_sf(data = polygon_sf, aes(fill = type), colour = NA) +
@@ -127,15 +134,19 @@ thames_map
 ## Zoom to the point extent
 ## -------------------------
 
+# Extract the bounding box of the points layer
 bbox_pts <- st_bbox(points_sf)
 
-buffer_deg <- 0.06  # degrees (rough demo buffer)
+buffer_deg <- 0.06  # This creates a numeric variable to act as a padding amount
 
+# Horizontal limits
 xlim <- c(bbox_pts["xmin"] - buffer_deg, bbox_pts["xmax"] + buffer_deg)
+
+# Vertical limits
 ylim <- c(bbox_pts["ymin"] - buffer_deg, bbox_pts["ymax"] + buffer_deg)
 
 thames_map_zoom <- thames_map +
-  coord_sf(xlim = xlim, ylim = ylim, expand = FALSE)
+  coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) # expand = FALSE prevents ggplot from adding extra padding
 
 thames_map_zoom
 
@@ -149,7 +160,8 @@ target_crs <- 4326
 # Read from ArcGIS
 hotspots_url <- "https://services.arcgis.com/bL1WyMoaiBW4etad/ArcGIS/rest/services/Biodiversity_Hotspots_2016/FeatureServer/0"
 
-hotspots_sf <- esri2sf::esri2sf(hotspots_url, where = "1=1") %>%
+# Load biodiversity hotspots
+hotspots_sf <- esri2sf::esri2sf(hotspots_url, where = "1=1") %>% # used to request all records from the dataset without applying any attribute filters
   st_transform(target_crs)
 
 ## Natural Earth basemap
@@ -181,7 +193,7 @@ hotspots_map <- ggplot() +
     title = "Global Biodiversity Hotspots (2016)",
     subtitle = "Hotspots over a Natural Earth basemap",
     fill = NULL) +
-  theme_wsj()
+  theme_wsj() # many options available
 
 hotspots_map
 
@@ -196,32 +208,33 @@ ggsave(
   width = 10,
   height = 6,
   units = "in",
-  dpi = 300)
+  dpi = 300)  # dots per inch, industry standard for "print-ready" quality
 
 
-## -----------------------------
+## -----------------------------------------
 ## Extra: Custom publication theme function 
-## -----------------------------
+## -----------------------------------------
 
 theme_Publication_map <- function(base_size = 12, base_family = "") {
   
   theme_bw(base_size = base_size, base_family = base_family) +
     theme(
+      
       # Titles
-      plot.title    = element_text(face = "bold", size = rel(1.2), hjust = 0.5),
+      plot.title    = element_text(face = "bold", size = rel(1.2), hjust = 0.5), # sets the font size to be 1.2 times larger than the base font size of the theme. rel() ensures the title scales proportionately
       plot.subtitle = element_text(size = rel(1.0), hjust = 0.5),
       
-      # Maps usually look cleaner without axes and heavy grids
+      # Cleaner without axes and heavy grids
       axis.title = element_blank(),
       axis.text  = element_blank(),
       axis.ticks = element_blank(),
       axis.line  = element_blank(),
       
-      # Gridlines off (or very light if you want them)
+      # Gridlines off
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
       
-      # Panel border off (common in publication maps)
+      # Panel border off
       panel.border = element_blank(),
       
       # Legend styling

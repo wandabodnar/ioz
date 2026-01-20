@@ -10,7 +10,7 @@
 ## 6) Extra: convert to GeoJSON
 
 
-## Load libraries and data
+# Load libraries and data
 setwd("~/GIS plan/Data")
 
 library(tidyverse)   # data handling
@@ -96,24 +96,28 @@ ggplot() +
 
 world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 
+# Mercator projection: shows directions as straight lines, but it severely distorts the size of landmasses, especially near the poles
 ggplot(world) +
   geom_sf() +
-  coord_sf(crs = st_crs(3857)) +
+  coord_sf(crs = st_crs(3857)) +        # EPSG code is a unique identifier used to represent coordinate systems
   ggtitle("Web Mercator (EPSG:3857)") +
   theme_minimal()
 
+# Robinson projection: visually appealing for general use, though it distorts size, shape, and distance, especially near the poles
 ggplot(world) +
   geom_sf() +
   coord_sf(crs = "+proj=robin") +
   ggtitle("Robinson projection") +
   theme_minimal()
 
+# Mollweide projection: it accurately shows the relative size of landmasses, but it heavily distorts shapes and angles, especially near the edges
 ggplot(world) +
   geom_sf() +
   coord_sf(crs = "+proj=moll") +
   ggtitle("Mollweide projection") +
   theme_minimal()
 
+# WGS84 (lon/lat): a variant of the Mercator map projection and is the de facto standard for Web mapping applications
 ggplot(world) +
   geom_sf() +
   coord_sf(crs = st_crs(4326)) +
@@ -160,7 +164,7 @@ ggplot(antarctica_data) +
 
 ## Shapefile to GeoJSON
 
-point_shp_sf <- st_read("layers/POINT.shp") # already has geometry column
+point_shp_sf <- st_read("layers/POINT.shp")   # already has geometry column
 
 # write GeoJSON
 st_write(

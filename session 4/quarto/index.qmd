@@ -23,10 +23,9 @@ library(rnaturalearth)      # Natural Earth basemap
 target_crs <- 4326
 ```
 
-
 ## My first online map
 
-This map below shows the recent earthquakes around the world and the active fault lines. 
+This map below shows the recent earthquakes around the world and the active fault lines.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Earthquakes

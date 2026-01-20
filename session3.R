@@ -175,7 +175,7 @@ faults <- esri2sf::esri2sf(
 
 leaflet() %>%
   setView(lng = 63, lat = 28, zoom = 2) %>%
-  addProviderTiles(providers$CartoDB.DarkMatter, group = "Carto") %>%
+  addProviderTiles(providers$CartoDB.DarkMatter, group = "Carto Dark") %>%
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
   addPolylines(
     data = faults,
@@ -189,10 +189,10 @@ leaflet() %>%
     radius = ~mag,
     popup = ~paste("Location:", place, "<br>",
                    "Magnitude:", mag, "<br>",
-                   "Date:", as.character(as.POSIXct(time/1000, origin="1970-01-01"))),
+                   "Date:", as.character(as.POSIXct(time/1000, origin="1970-01-01"))), # this converts a numeric Unix timestamp (usually in milliseconds) into a human-readable date and time, it sets January 1, 1970, as the "zero" point for the calculation
     group = "Earthquakes") %>%
   addLayersControl(
-    baseGroups = c("Carto","Satellite"),
+    baseGroups = c("Carto Dark","Satellite"),
     overlayGroups = c("Earthquakes", "Faults"),
     options = layersControlOptions(collapsed = FALSE)) %>%
   addLegend(
@@ -215,11 +215,11 @@ sst_raster <- read_stars(tif_path)
 # Set CRS
 st_crs(sst_raster) <- 4326
 
-# Adjust dimensions
-attr(sst_raster, "dimension")$x$offset <- -180
+# Adjust dimensions (georeferencing)
+attr(sst_raster, "dimension")$x$offset <- -180 # sets the starting coordinates 
 attr(sst_raster, "dimension")$y$offset <- 90
-attr(sst_raster, "dimension")$x$delta <- 0.1
-attr(sst_raster, "dimension")$y$delta <- -0.1
+attr(sst_raster, "dimension")$x$delta <- 0.1  # pixel size (resolution), each pixel represents 0.1 degrees
+attr(sst_raster, "dimension")$y$delta <- -0.1 
 
 # Replace no data values with NA
 sst_raster[sst_raster == 255] <- NA 
