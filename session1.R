@@ -38,8 +38,8 @@ glimpse(point_csv_sf)
 # visual checks
 plot(st_geometry(point_csv_sf))
 
-ggplot() +
-  geom_sf(data = point_csv_sf)
+ggplot() + # grammar of graphics
+  geom_sf(data = point_csv_sf) # simple features, pulls lat/long directly from the geometry column 
 
 
 ## --------------------
@@ -136,7 +136,8 @@ ggplot(world) +
   theme_minimal()
 
 # Filter to Europe
-europe_data <- world |> filter(continent == "Europe")
+europe_data <- world %>% # pipe operator chains functions together, |> also works in R 4.1+
+  filter(continent == "Europe")
 
 ggplot(europe_data) +
   geom_sf() +
@@ -148,7 +149,8 @@ ggplot(europe_data) +
   theme_minimal()
 
 # Filter to Antarctica
-antarctica_data <- world |> filter(name == "Antarctica")
+antarctica_data <- world %>%
+  filter(name == "Antarctica")
 
 ggplot(antarctica_data) +
   geom_sf() +

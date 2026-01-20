@@ -75,5 +75,6 @@ https://neo.gsfc.nasa.gov/view.php?datasetId=MYD28M
 - Leaflet for R: https://rstudio.github.io/leaflet/articles/leaflet.html
 - R Markdown cheat sheet: https://rstudio.github.io/cheatsheets/html/rmarkdown.html
 - Quarto cheat sheet: https://rstudio.github.io/cheatsheets/html/quarto.html
+- Quarto: https://quarto.org/docs/output-formats/html-themes.html
 
 ---

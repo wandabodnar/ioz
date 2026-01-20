@@ -253,5 +253,4 @@ leaflet() %>%
     title = "SST (°C)",
     position = "bottomright")
 
-
 # End session 3

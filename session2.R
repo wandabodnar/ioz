@@ -124,7 +124,7 @@ thames_map <- ggplot() +
   scale_fill_manual(values = poly_fill_cols) +
   labs(
     title = "Study area with monitoring site and transect",
-    subtitle = "Local layers over Thames estuary web layer") +
+    subtitle = "Local layers over Thames Estuary web layer") +
   theme_bw()
 
 thames_map
@@ -137,7 +137,7 @@ thames_map
 # Extract the bounding box of the points layer
 bbox_pts <- st_bbox(points_sf)
 
-buffer_deg <- 0.06  # This creates a numeric variable to act as a padding amount
+buffer_deg <- 0.05  # this creates a numeric variable to act as a padding amount
 
 # Horizontal limits
 xlim <- c(bbox_pts["xmin"] - buffer_deg, bbox_pts["xmax"] + buffer_deg)
