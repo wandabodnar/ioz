@@ -2,7 +2,7 @@
 # From spatial data to published interactive maps using R
 
 **Training date:** 21/01/2026  
-**Lead by:** Wanda Bodnar  
+**Led by:** Wanda Bodnar  
 
 This repository supports the training **“From spatial data to published interactive maps using R”**, covering:
 
