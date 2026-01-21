@@ -29,7 +29,7 @@ This repository supports the training **“From spatial data to published intera
 - Install **R first**, then install **RStudio Desktop**.
 
 ### 2) Install required R packages
-- Open the provided workshop script (or use the block below) and run it in RStudio.
+- Open the provided workshop script and run it in RStudio.
 
 ### 3) GitHub setup
 - Create a GitHub account
@@ -67,6 +67,8 @@ https://neo.gsfc.nasa.gov/view.php?datasetId=MYD28M
 
 ## Resources
 
+- What is R?: https://www.r-project.org/about.html
+- Books: https://www.r-project.org/doc/bib/R-books.html
 - sf package: https://r-spatial.github.io/sf/
 - QGIS CRS guide: https://docs.qgis.org/3.40/en/docs/gentle_gis_introduction/coordinate_reference_systems.html
 - Esri: Earth “peel” / projections: https://www.esri.com/arcgis-blog/products/arcgis-pro/education/earth-peel
