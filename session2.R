@@ -32,11 +32,11 @@ library(grid)          # unit() for theme spacing
 ## Local spatial data
 ## -------------------
 
-# Points from CSV (lon/lat columns)
-points_df <- read_csv("points.csv")
+# Point from CSV (lon/lat columns)
+point_sf <- read_csv("point.csv")
 
-points_sf <- st_as_sf(
-  points_df,
+point_sf <- st_as_sf(
+  point_sf,
   coords = c("lon", "lat"),
   crs = 4326) 
 
@@ -53,7 +53,7 @@ polygon_sf <- st_read("layers/POLYGON.shp", quiet = TRUE)
 
 target_crs <- 4326
 
-points_sf  <- st_transform(points_sf, target_crs)
+point_sf  <- st_transform(point_sf, target_crs)
 line_sf    <- st_transform(line_sf, target_crs)
 polygon_sf <- st_transform(polygon_sf, target_crs)
 
@@ -65,7 +65,7 @@ polygon_sf <- st_transform(polygon_sf, target_crs)
 ggplot() +
   geom_sf(data = polygon_sf, colour = "red3") +
   geom_sf(data = line_sf, linewidth = 0.8) +
-  geom_sf(data = points_sf, size = 2) +
+  geom_sf(data = point_sf, size = 2) +
   labs(
     title = "Study area with monitoring site and transect",
     subtitle = "An example of a publication-ready static map") 
@@ -84,7 +84,7 @@ poly_fill_cols <- c(
   "Study area" = "purple4")
 
 # Add type attribute to each layer
-points_sf <- points_sf  %>% 
+point_sf <- point_sf  %>% 
   mutate(type = "Monitoring site")  # mutate() is a core function  used to create, modify, or delete columns in a data frame
 
 line_sf <- line_sf %>% 
@@ -97,7 +97,7 @@ polygon_sf <- polygon_sf %>%
 ggplot() +
   geom_sf(data = polygon_sf, aes(fill = type), colour = NA) +
   geom_sf(data = line_sf, aes(colour = type), linewidth = 0.8) +
-  geom_sf(data = points_sf, aes(colour = type), size = 2) +
+  geom_sf(data = point_sf, aes(colour = type), size = 2) +
   scale_colour_manual(values = line_point_cols) +
   scale_fill_manual(values = poly_fill_cols) +
   labs(
@@ -114,12 +114,12 @@ thames <- esri2sf::esri2sf(
   where = "1=1") %>%
   st_transform(target_crs)
 
-# Build combined map: basemap first, then polygon/lines/points
+# Build combined map: basemap first, then polygon/lines/point
 thames_map <- ggplot() +
   geom_sf(data = thames, fill = "lightblue", colour = NA) +
   geom_sf(data = polygon_sf, aes(fill = type), colour = NA) +
   geom_sf(data = line_sf, aes(colour = type), linewidth = 0.8) +
-  geom_sf(data = points_sf, aes(colour = type), size = 2) +
+  geom_sf(data = point_sf, aes(colour = type), size = 2) +
   scale_colour_manual(values = line_point_cols) +
   scale_fill_manual(values = poly_fill_cols) +
   labs(
@@ -134,8 +134,8 @@ thames_map
 ## Zoom to the point extent
 ## -------------------------
 
-# Extract the bounding box of the points layer
-bbox_pts <- st_bbox(points_sf)
+# Extract the bounding box of the point layer
+bbox_pts <- st_bbox(point_sf)
 
 buffer_deg <- 0.05  # this creates a numeric variable to act as a padding amount
 

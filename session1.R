@@ -24,7 +24,7 @@ library(rnaturalearth) # example world maps
 ## --------------------
 
 # read CSV (non-spatial table)
-point_csv <- read_csv("points.csv")
+point_csv <- read_csv("point.csv")
 glimpse(point_csv)
 
 # convert to spatial data, R creates a geometry column (A simple features (sf) object is a table with a geometry column.)
@@ -178,7 +178,7 @@ st_write(
 # write GeoJSON
 st_write(
   point_csv_sf,
-  "layers/points_csv.geojson",
+  "layers/point_csv.geojson",
   driver = "GeoJSON",
   delete_dsn = TRUE)
 
