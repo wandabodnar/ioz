@@ -22,10 +22,9 @@ library(rnaturalearth)      # Natural Earth basemap
 target_crs <- 4326
 ```
 
-
 ## My first online map
 
-This map below shows the recent earthquakes around the world and the active fault lines. 
+This map below shows the recent earthquakes around the world and the active fault lines.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Earthquakes
@@ -69,7 +68,6 @@ leaflet(width = "100%") %>%
   addFullscreenControl()
 ```
 
-
-![](C:/Users/bodna/OneDrive/Documents/GIS plan/ioz/session 4/quarto/image.png)
+![](C:/Users/bodna/OneDrive/Documents/GIS%20plan/ioz/session%204/quarto/image.png)
 
 (Data source: [U.S. Geological Survey](https://www.usgs.gov/programs/earthquake-hazards/earthquakes))

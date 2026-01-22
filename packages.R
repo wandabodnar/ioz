@@ -2,7 +2,7 @@
 pkgs <- c(
   "esri2sf", "ggplot2", "ggspatial", "ggthemes", "leafem",
   "leaflet", "leaflet.extras", "leaflet.extras2", "leaflet.providers",
-  "patchwork", "rnaturalearth", "sf", "stars", "tidyverse"
+  "patchwork", "rnaturalearth", "rnaturalearthdata", "sf", "stars", "tidyverse"
 )
 
 # Install any missing packages

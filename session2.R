@@ -197,7 +197,6 @@ hotspots_map <- ggplot() +
 
 hotspots_map
 
-
 ## -----------------------------
 ## Save map (high resolution)
 ## -----------------------------

@@ -18,8 +18,8 @@ This repository supports the training **“From spatial data to published intera
 - **10:00 – 11:00:** Session 1 — Creating and loading spatial data  
 - **11:00 – 12:00:** Session 2 — Publication‑ready static maps in R  
 - **12:00 – 13:00:** Lunch  
-- **13:00 – 14:00:** Session 3 — Interactive maps and mixed data sources  
-- **14:00 – 15:00:** Session 4 — Publishing maps online  
+- **13:00 – 14:30:** Session 3 — Interactive maps and mixed data sources  
+- **14:30 – 16:00:** Session 4 — Publishing maps online  
 
 ---
 
@@ -29,7 +29,7 @@ This repository supports the training **“From spatial data to published intera
 - Install **R first**, then install **RStudio Desktop**.
 
 ### 2) Install required R packages
-- Open the provided workshop script and run it in RStudio.
+- Open the provided workshop script (packages) and run it in RStudio.
 
 ### 3) GitHub setup
 - Create a GitHub account
