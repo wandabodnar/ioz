@@ -14,7 +14,7 @@
 ## --------------------------
 
 # Set WD
-setwd("~/GIS plan/Data")
+setwd("~/GIS training/Data")
 
 # Load libraries
 library(leaflet)            # interactive maps
@@ -202,6 +202,46 @@ leaflet() %>%
     opacity = 1) %>%
   addResetMapButton() %>%
   addFullscreenControl()
+
+
+## ----------------------------------
+## Extra: GeoJSON with multifeatures
+## ----------------------------------
+
+all_geojson_sf <- st_read("all.geojson")
+
+points <- all_geojson_sf[st_geometry_type(all_geojson_sf) == "POINT", ]
+lines <- all_geojson_sf[st_geometry_type(all_geojson_sf) %in% c("LINESTRING", "MULTILINESTRING"), ]
+polygons <- all_geojson_sf[st_geometry_type(all_geojson_sf) %in% c("POLYGON", "MULTIPOLYGON"), ]
+
+leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron, group = "Carto") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+  addCircleMarkers(
+    data = points,
+    color = "blue",
+    radius = 5,
+    popup = ~paste("Name", Name),
+    group = "Point") %>%
+  addPolylines(
+    data = lines,
+    color = "green",
+    weight = 3,
+    popup = ~paste("Name", Name),
+    group = "Line") %>%
+  addPolygons(
+    data = polygons,
+    color = "red",
+    weight = 2,
+    fillOpacity = 0.5,
+    popup = ~paste("Name", Name),
+    group = "Polygon") %>%
+  addLayersControl(
+    baseGroups = c("Carto","Satellite"),
+    overlayGroups = c("Point","Line","Polygon"),
+    options = layersControlOptions(collapsed = FALSE)) %>%
+  hideGroup("Line") %>%
+  hideGroup("Polygon")
 
 
 ## ----------------------------------------------------------------------------

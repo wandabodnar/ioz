@@ -11,7 +11,7 @@
 
 
 # Load libraries and data
-setwd("~/GIS plan/Data")
+setwd("~/GIS training/Data")
 
 library(tidyverse)   # data handling
 library(sf)          # spatial data
@@ -182,5 +182,27 @@ st_write(
   driver = "GeoJSON",
   delete_dsn = TRUE)
 
+
+## ----------------------------------
+## Extra: GeoJSON with multifeatures
+## ----------------------------------
+
+all_geojson_sf <- st_read("all.geojson")
+
+glimpse(all_geojson_sf)
+
+ggplot() +
+  geom_sf(data = all_geojson_sf) +
+  theme_minimal()
+
+points <- all_geojson_sf[st_geometry_type(all_geojson_sf) == "POINT", ]
+lines <- all_geojson_sf[st_geometry_type(all_geojson_sf) %in% c("LINESTRING", "MULTILINESTRING"), ]
+polygons <- all_geojson_sf[st_geometry_type(all_geojson_sf) %in% c("POLYGON", "MULTIPOLYGON"), ]
+
+ggplot() +
+  geom_sf(data = polygons, fill = "lightblue", color = "black") +
+  geom_sf(data = lines, color = "red", size = 1) +
+  geom_sf(data = points, color = "blue", size = 3) +
+  theme_minimal()
 
 # End of session 1

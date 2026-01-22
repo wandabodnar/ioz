@@ -15,7 +15,7 @@
 ## --------------------------
 
 # Set WD
-setwd("~/GIS plan/Data")
+setwd("~/GIS training/Data")
 
 # Load libraries
 library(tidyverse)     # data wrangling + readr
